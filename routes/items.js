@@ -5,35 +5,34 @@ const Item = require('../models/item');
 const router = express.Router();
 
 /**
-   * @swagger
-   * components:
-   *   schemas:
-   *     User:
-   *       type: object
-   *       properties:
-   *         name:
-   *           type: string
-   *           description: The user's name
-   *         age:
-   *           type: integer
-   *           description: The user's age
-   */
-
-  /**
-   * @swagger
-   * /user:
-   *   post:
-   *     summary: Create a new user
-   *     requestBody:
-   *       required: true
-   *       content:
-   *         application/json:
-   *           schema:
-   *             $ref: '#/components/schemas/User'
-   *     responses:
-   *       201:
-   *         description: User created
-   */
+* @swagger
+* components:
+* schemas:
+* items:
+* type: object
+* properties:
+* name:
+* type: string
+* description: The user's name
+* description:
+* type: string
+* description: Description of user
+*/
+/**
+* @swagger
+* /items:
+* post:
+* summary: Create a new user
+* requestBody:
+* required: true
+* content:
+* application/json:
+* schema:
+* $ref: '#/components/schemas/items'
+* responses:
+* 201:
+* description: User created
+*/
   router.post('/user', (req, res) => {
    const user = req.body;
    res.status(201).json(user);
@@ -50,7 +49,15 @@ router.post('/', async (req, res) => {
   }
 });
 
-// Get all items
+/**
+* @swagger
+* /items:
+* get:
+* summary: Retrieve a list of users
+* responses:
+* 200:
+* description: A list of users
+*/
 router.get('/', async (req, res) => {
   try {
     const items = await Item.find();
@@ -71,7 +78,15 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// Update an item
+/**
+* @swagger
+* /items:
+* patch:
+* summary: Update item
+* responses:
+* 200:
+* description: Update item
+*/
 router.patch('/:id', async (req, res) => {
   try {
     const updatedItem = await Item.findByIdAndUpdate(req.params.id, req.body, { new: true });
@@ -82,7 +97,15 @@ router.patch('/:id', async (req, res) => {
   }
 });
 
-// Delete an item
+/**
+* @swagger
+* /items:
+* delete:
+* summary: Delete an item
+* responses:
+* 200:
+* description: Delete item
+*/
 router.delete('/:id', async (req, res) => {
   try {
     const item = await Item.findByIdAndDelete(req.params.id);
